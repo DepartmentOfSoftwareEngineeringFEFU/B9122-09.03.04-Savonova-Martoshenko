@@ -1,0 +1,620 @@
+// Основная сетка: две колонки
+.topGrid {
+  display: grid;
+  grid-template-columns: 1fr 0.9fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+// Верхняя панель с кнопками
+.topActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.actionBtn {
+  padding: 8px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid #238f76;
+  color: #238f76;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(35, 143, 118, 0.1);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Виджет статистики
+.statsWidget {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.statCard {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.statValue {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1f8b75;
+  line-height: 1;
+}
+
+.statLabel {
+  font-size: 12px;
+  color: #8aa4ac;
+  font-weight: 500;
+  text-align: center;
+}
+
+.progressBarLabel {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 600;
+  color: #17323b;
+  margin-bottom: 8px;
+  width: 100%;
+}
+
+.progressBarTrack {
+  width: 100%;
+  height: 8px;
+  background: #e2efeb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progressBarFill {
+  height: 100%;
+  background: linear-gradient(90deg, #1f8b75, #27ae8f);
+  border-radius: 999px;
+  transition: width 0.4s ease;
+}
+
+// Карточка информации о проекте
+.infoCard {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.projectTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: #17323b;
+  margin: 0 0 20px 0;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.infoItem {
+  font-size: 14px;
+
+  span {
+    font-weight: 600;
+    color: #1f8b75;
+    margin-right: 8px;
+  }
+}
+
+.infoItemFull {
+  grid-column: 1 / -1;
+  font-size: 14px;
+
+  span {
+    font-weight: 600;
+    color: #1f8b75;
+    margin-right: 8px;
+  }
+}
+
+// Карточка участников
+.membersCard {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+
+  .cardHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+
+    h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: #17323b;
+    }
+  }
+}
+
+.ownerBadge {
+  background: rgba(31, 139, 117, 0.1);
+  color: #1f8b75;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.memberList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.memberChip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8faf8;
+  padding: 8px 12px;
+  border-radius: 12px;
+}
+
+.memberName {
+  font-weight: 500;
+  color: #17323b;
+}
+
+.memberRole {
+  font-size: 12px;
+  color: #1f8b75;
+  background: rgba(31, 139, 117, 0.1);
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.removeBtn {
+  background: none;
+  border: none;
+  color: #b45a5a;
+  cursor: pointer;
+  font-size: 18px;
+  border-radius: 12px;
+
+  &:hover {
+    color: #d63031;
+  }
+}
+
+.addMemberForm {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+
+  input,
+  select {
+    padding: 8px 12px;
+    border: 1px solid #e2efeb;
+    border-radius: 10px;
+    font-size: 13px;
+    flex: 1;
+  }
+
+  button {
+    white-space: nowrap;
+    border-radius: 12px;
+  }
+}
+
+// Вкладки
+.tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid #e2efeb;
+  margin-bottom: 24px;
+}
+
+.tab {
+  padding: 10px 24px;
+  border: none;
+  background: none;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #8aa4ac;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.2s ease;
+  border-radius: 12px 12px 0 0;
+
+  &:hover {
+    color: #1f8b75;
+  }
+}
+
+.tabActive {
+  color: #1f8b75;
+  border-bottom-color: #1f8b75;
+}
+
+.tabContent {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.tabHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.filters {
+  display: flex;
+  gap: 12px;
+
+  select {
+    padding: 8px 12px;
+    border: 1px solid #e2efeb;
+    border-radius: 10px;
+    font-size: 13px;
+    background: #fff;
+  }
+}
+
+.taskForm,
+.sourceForm {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 20px;
+  background: #f8faf8;
+  border-radius: 16px;
+
+  input,
+  select,
+  textarea {
+    padding: 8px 12px;
+    border: 1px solid #e2efeb;
+    border-radius: 10px;
+    font-size: 13px;
+  }
+
+  textarea {
+    grid-column: 1 / -1;
+  }
+
+  button {
+    grid-column: 1 / -1;
+    border-radius: 12px;
+  }
+}
+
+// Минималистичный список задач
+.taskTable {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+
+  th {
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 500;
+    color: #1f8b75;
+    background: rgba(31, 139, 117, 0.1);
+    border: none;
+
+    &:first-child {
+      border-radius: 12px 0 0 12px;
+    }
+
+    &:last-child {
+      border-radius: 0 12px 12px 0;
+    }
+  }
+
+  td {
+    padding: 14px 16px;
+    background: #f8fbf9;
+    color: #5f747c;
+    font-weight: 400;
+    border-top: 1px solid #f2f5f4;
+    border-bottom: 1px solid #eef4f2;
+    transition: background 0.15s ease;
+  }
+
+  tr td:first-child {
+    border-left: 1px solid #eef4f2;
+    border-radius: 12px 0 0 12px;
+    color: #17323b;
+    font-weight: 500;
+  }
+
+  tr td:last-child {
+    border-right: 1px solid #eef4f2;
+    border-radius: 0 12px 12px 0;
+  }
+
+  tr:hover td {
+    background: #f1f8f5;
+  }
+}
+
+.sourceTable,
+.fileTable {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e2efeb;
+  }
+
+  th {
+    font-weight: 600;
+    color: #17323b;
+    background: #f8faf8;
+  }
+
+  td {
+    color: #5f747c;
+  }
+
+  tr:hover td {
+    background: #f8faf8;
+  }
+}
+
+.taskStatus {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.taskStatusTodo {
+  background: #f4f6f8;
+  color: #6f8a91;
+}
+
+.taskStatusProgress {
+  background: #e7f4ff;
+  color: #2f80ed;
+}
+
+.taskStatusDone {
+  background: #e8f7f1;
+  color: #1f8b75;
+}
+
+.taskStatusOverdue {
+  background: #fff1f0;
+  color: #d63031;
+}
+
+.gostRow {
+  background: #f0f7f5 !important;
+  font-size: 13px;
+  color: #3a6b5f !important;
+  font-style: italic;
+  padding: 6px 12px !important;
+  border-bottom: 1px solid #e2efeb;
+}
+
+.gostLabel {
+  font-weight: 600;
+  font-style: normal;
+  color: #1f8b75;
+  margin-right: 4px;
+}
+
+.fileSection {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #e2efeb;
+
+  h3 {
+    margin: 0 0 16px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #17323b;
+  }
+}
+
+.uploadForm {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+
+  input[type="file"] {
+    flex: 2;
+    padding: 8px;
+  }
+
+  input[type="text"] {
+    flex: 2;
+    padding: 8px 12px;
+    border: 1px solid #e2efeb;
+    border-radius: 10px;
+  }
+
+  button {
+    border-radius: 12px;
+  }
+}
+
+.badgePending {
+  display: inline-block;
+  background: #f0e8a0;
+  color: #8a7500;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.accessDenied {
+  text-align: center;
+  padding: 40px;
+  color: #b45a5a;
+  background: #fef2f0;
+  border-radius: 16px;
+}
+
+// Таблица отчетов
+.reportTable {
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e2efeb;
+  }
+
+  th {
+    font-weight: 600;
+    color: #17323b;
+    background-color: #f8faf8;
+  }
+
+  tr:hover td {
+    background-color: #f8faf8;
+  }
+}
+
+.reportStatus {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.statusPending {
+  background-color: #fff3e0;
+  color: #ff9800;
+}
+
+.statusSubmitted {
+  background-color: #e3f2fd;
+  color: #2196f3;
+}
+
+.statusReviewed {
+  background-color: #e8f5e9;
+  color: #4caf50;
+}
+
+.statusRejected {
+  background-color: #ffebee;
+  color: #f44336;
+}
+
+.overdueDate {
+  color: #f44336;
+  font-weight: 500;
+}
+
+.emptyState {
+  text-align: center;
+  padding: 48px 20px;
+  color: #8aa4ac;
+
+  p {
+    margin-bottom: 16px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .topGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .topActions {
+    justify-content: flex-start;
+  }
+
+  .infoGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .tabs {
+    flex-wrap: wrap;
+  }
+
+  .taskTable,
+  .sourceTable,
+  .fileTable,
+  .reportTable {
+    display: block;
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .topActions {
+    flex-direction: column;
+  }
+
+  .actionBtn {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.deleteTaskBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  color: #b45a5a;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: rgba(180, 90, 90, 0.1);
+    transform: scale(1.05);
+  }
+}

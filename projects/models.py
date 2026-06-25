@@ -1,0 +1,215 @@
+"""Модели приложения projects."""
+
+from django.conf import settings
+from django.db import models
+
+
+class Project(models.Model):
+    """Проект научной группы."""
+
+    STATUS_CHOICES = [
+        ('in_progress', 'В процессе'),
+        ('done', 'Завершен'),
+    ]
+
+    title = models.CharField('Название', max_length=255)
+    description = models.TextField('Описание', blank=True)
+    area = models.CharField('Область проекта', max_length=255)
+    status = models.CharField('Статус', max_length=20, choices=STATUS_CHOICES, default='in_progress')
+    goal = models.TextField('Цель проекта', blank=True)
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='owned_projects',
+        verbose_name='Владелец',
+    )
+    members = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        through='ProjectMembership',
+        related_name='projects',
+        verbose_name='Участники',
+    )
+    start_date = models.DateField('Дата начала')
+    end_date = models.DateField('Дата окончания')
+    created_at = models.DateTimeField('Дата создания', auto_now_add=True)
+    updated_at = models.DateTimeField('Дата обновления', auto_now=True)
+
+    class Meta:
+        verbose_name = 'Проект'
+        verbose_name_plural = 'Проекты'
+        ordering = ['-created_at']
+
+    def __str__(self) -> str:
+        return self.title
+
+
+class ProjectMembership(models.Model):
+    """Участие пользователя в проекте с ролью."""
+
+    PROJECT_ROLE_CHOICES = [
+        ('analyst', 'Аналитик'),
+        ('developer', 'Разработчик'),
+        ('tester', 'Тестировщик'),
+        ('designer', 'Дизайнер'),
+        ('researcher', 'Исследователь'),
+    ]
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='project_memberships',
+        verbose_name='Пользователь',
+    )
+    project = models.ForeignKey(
+        Project,
+        on_delete=models.CASCADE,
+        related_name='memberships',
+        verbose_name='Проект',
+    )
+    project_role = models.CharField('Роль в проекте', max_length=20, choices=PROJECT_ROLE_CHOICES)
+    joined_at = models.DateTimeField('Дата вступления', auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Участие в проекте'
+        verbose_name_plural = 'Участия в проектах'
+        unique_together = [('user', 'project')]
+
+    def __str__(self) -> str:
+        return f'{self.user} — {self.project} ({self.get_project_role_display()})'
+
+
+class ProjectHistory(models.Model):
+    """История изменений проекта."""
+
+    project = models.ForeignKey(
+        Project,
+        on_delete=models.CASCADE,
+        related_name='history',
+        verbose_name='Проект',
+    )
+    changed_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='project_changes',
+        verbose_name='Кто изменил',
+    )
+    field_name = models.CharField('Поле', max_length=255)
+    old_value = models.TextField('Старое значение', blank=True)
+    new_value = models.TextField('Новое значение', blank=True)
+    changed_at = models.DateTimeField('Дата изменения', auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Запись истории проекта'
+        verbose_name_plural = 'История изменений проектов'
+        ordering = ['-changed_at']
+
+    def __str__(self) -> str:
+        return f'{self.project}: {self.field_name} изменено {self.changed_by}'
+
+
+class JoinRequest(models.Model):
+    """Заявка на вступление в проект."""
+
+    STATUS_CHOICES = [
+        ('pending', 'На рассмотрении'),
+        ('approved', 'Одобрена'),
+        ('rejected', 'Отклонена'),
+    ]
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='join_requests',
+        verbose_name='Пользователь',
+    )
+    project = models.ForeignKey(
+        Project,
+        on_delete=models.CASCADE,
+        related_name='join_requests',
+        verbose_name='Проект',
+    )
+    desired_role = models.CharField(
+        'Желаемая роль',
+        max_length=20,
+        choices=ProjectMembership.PROJECT_ROLE_CHOICES,
+    )
+    assigned_role = models.CharField(
+        'Назначенная роль',
+        max_length=20,
+        choices=ProjectMembership.PROJECT_ROLE_CHOICES,
+        null=True,
+        blank=True,
+    )
+    message = models.TextField('Сопроводительное сообщение', blank=True)
+    status = models.CharField(
+        'Статус',
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default='pending',
+    )
+    reviewed_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='reviewed_requests',
+        verbose_name='Кто рассмотрел',
+    )
+    reviewed_at = models.DateTimeField(
+        'Дата рассмотрения', null=True, blank=True,
+    )
+    created_at = models.DateTimeField('Дата создания', auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Заявка на вступление'
+        verbose_name_plural = 'Заявки на вступление'
+        ordering = ['-created_at']
+        constraints = [
+            models.UniqueConstraint(
+                fields=['user', 'project'],
+                condition=models.Q(status='pending'),
+                name='unique_pending_request_per_user_project',
+            )
+        ]
+
+    def __str__(self) -> str:
+        return f'{self.user} → {self.project} ({self.get_status_display()})'
+
+
+class ProjectInvitation(models.Model):
+    """Приглашение пользователя в проект владельцем."""
+
+    STATUS_CHOICES = [
+        ('pending', 'На рассмотрении'),
+        ('accepted', 'Принято'),
+        ('declined', 'Отклонено'),
+    ]
+
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, related_name='invitations',
+    )
+    sender = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='sent_invitations',
+        verbose_name='Отправитель',
+    )
+    receiver = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='received_invitations',
+        verbose_name='Получатель',
+    )
+    project_role = models.CharField('Роль', max_length=50, default='developer')
+    status = models.CharField(
+        'Статус', max_length=20, choices=STATUS_CHOICES, default='pending',
+    )
+    created_at = models.DateTimeField('Дата создания', auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Приглашение в проект'
+        verbose_name_plural = 'Приглашения в проект'
+        unique_together = [('project', 'receiver')]
+
+    def __str__(self) -> str:
+        return f'{self.sender} → {self.receiver} в {self.project}'

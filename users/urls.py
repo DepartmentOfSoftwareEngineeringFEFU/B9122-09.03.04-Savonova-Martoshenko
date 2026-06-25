@@ -1,0 +1,46 @@
+"""URL-маршруты приложения users."""
+
+from django.urls import path
+from rest_framework_simplejwt.views import TokenRefreshView
+
+from projects.views import MyJoinRequestCancelView, MyJoinRequestsView
+
+from .views import (
+    AdminUserDetailView,
+    AdminUserListView,
+    LoginView,
+    LogoutView,
+    MeView,
+    RegisterView,
+)
+
+app_name = 'users'
+
+urlpatterns = [
+    path('register/', RegisterView.as_view(), name='register'),
+    path('login/', LoginView.as_view(), name='login'),
+    path('logout/', LogoutView.as_view(), name='logout'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token-refresh'),
+    path('me/', MeView.as_view(), name='me'),
+    path(
+        'me/join-requests/',
+        MyJoinRequestsView.as_view(),
+        name='my-join-requests',
+    ),
+    path(
+        'me/join-requests/<int:req_id>/',
+        MyJoinRequestCancelView.as_view(),
+        name='my-join-request-cancel',
+    ),
+    # Администрирование пользователей
+    path(
+        'admin/users/',
+        AdminUserListView.as_view(),
+        name='admin-user-list',
+    ),
+    path(
+        'admin/users/<int:user_id>/',
+        AdminUserDetailView.as_view(),
+        name='admin-user-detail',
+    ),
+]

@@ -1,0 +1,378 @@
+.header {
+  height: 92px;
+  padding: 0 32px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  color: #17323b;
+  letter-spacing: -0.6px;
+}
+
+.description {
+  margin: 0;
+  font-size: 14px;
+  color: #6d7d83;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+// Кнопка "Создать проект"
+.createBtn {
+  height: 48px;
+  padding: 0 18px;
+
+  border: none;
+  border-radius: 16px;
+
+  background: #1f8b75;
+  color: #ffffff;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+
+  svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  &:hover {
+    background: #176f5d;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(31, 139, 117, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0px);
+  }
+}
+
+// Обёртка с позиционированием для дропдауна
+.notificationWrapper {
+  position: relative;
+}
+
+// Кнопка уведомлений
+.notificationBtn {
+  position: relative;
+
+  width: 52px;
+  height: 52px;
+
+  border: none;
+  border-radius: 18px;
+
+  background: rgba(255, 255, 255, 0.9);
+  color: #8aa4ac;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 10px 28px rgba(41, 91, 123, 0.07);
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+
+  svg {
+    width: 23px;
+    height: 23px;
+  }
+
+  &:hover {
+    color: #1f8b75;
+    background: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(31, 139, 117, 0.15);
+  }
+
+  &:active {
+    transform: translateY(0px);
+  }
+}
+
+.badge {
+  position: absolute;
+  top: -4px;
+  right: -3px;
+
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+
+  border-radius: 999px;
+  background: #ff4d5f;
+  color: #ffffff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+// Карточка пользователя (кнопка перехода в профиль)
+.userCard {
+  height: 56px;
+  padding: 6px 16px 6px 8px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 10px 28px rgba(41, 91, 123, 0.07);
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 15px 35px rgba(31, 139, 117, 0.15);
+  }
+
+  &:active {
+    transform: translateY(0px);
+  }
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+
+  border-radius: 14px;
+  background: #1f8b75;
+  color: #ffffff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+  font-weight: 800;
+  transition: all 0.2s ease;
+}
+
+.userCard:hover .avatar {
+  background: #176f5d;
+  transform: scale(1.02);
+}
+
+.userText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #17323b;
+  white-space: nowrap;
+}
+
+.email {
+  margin-top: 3px;
+  font-size: 12px;
+  color: #8aa4ac;
+  white-space: nowrap;
+}
+
+// Дропдаун уведомлений
+.dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 360px;
+  max-height: 480px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(15, 31, 36, 0.18);
+  z-index: 1000;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdownHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px 12px;
+  border-bottom: 1px solid #e2efeb;
+  flex-shrink: 0;
+}
+
+.dropdownTitle {
+  font-size: 15px;
+  font-weight: 700;
+  color: #17323b;
+}
+
+.readAllBtn {
+  background: none;
+  border: none;
+  color: #1f8b75;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+
+  &:hover {
+    background: rgba(31, 139, 117, 0.08);
+  }
+}
+
+.emptyNotifications {
+  padding: 40px 20px;
+  text-align: center;
+  color: #8aa4ac;
+  font-size: 14px;
+}
+
+.notificationList {
+  overflow-y: auto;
+  flex: 1;
+}
+
+.notificationItem {
+  padding: 14px 20px;
+  border-bottom: 1px solid #f0f5f3;
+  cursor: pointer;
+  transition: background 0.15s ease;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover {
+    background: #f8faf8;
+  }
+
+  &.unread {
+    background: #f0f9f6;
+    border-left: 3px solid #1f8b75;
+    padding-left: 17px;
+  }
+
+  &.read {
+    opacity: 0.75;
+  }
+}
+
+.notifTitle {
+  font-size: 13px;
+  font-weight: 600;
+  color: #17323b;
+  margin-bottom: 4px;
+}
+
+.notifMessage {
+  font-size: 12px;
+  color: #5f747c;
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+
+.notifDate {
+  font-size: 11px;
+  color: #8aa4ac;
+}
+
+.inviteActions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.acceptBtn {
+  flex: 1;
+  padding: 6px 0;
+  background: #1f8b75;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #176f5d;
+  }
+}
+
+.declineBtn {
+  flex: 1;
+  padding: 6px 0;
+  background: #f0f5f3;
+  color: #5f747c;
+  border: none;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: #e0ece6;
+  }
+}
+
+@media (max-width: 900px) {
+  .header {
+    height: auto;
+    padding: 18px 20px;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .right {
+    gap: 10px;
+  }
+
+  .createBtn span,
+  .userText {
+    display: none;
+  }
+
+  .createBtn {
+    width: 52px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .userCard {
+    width: 56px;
+    padding: 7px;
+    justify-content: center;
+  }
+}

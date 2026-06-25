@@ -1,0 +1,40 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 70px;
+
+  padding: 4px 10px;
+  border-radius: 999px;
+
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+
+  white-space: nowrap;
+  text-transform: capitalize;
+}
+
+// Новая задача
+.gray {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+// В работе
+.yellow {
+  background: #fff8e1;
+  color: #f57c00;
+}
+
+// Завершено
+.green {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+// Отклонено / ошибка
+.red {
+  background: #ffebee;
+  color: #d32f2f;
+}
